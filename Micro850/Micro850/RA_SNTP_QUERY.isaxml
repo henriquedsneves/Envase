@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="RA_SNTP_QUERY" ElementGuid="796186c7-b941-4b88-a8a2-8a0fc1557ccb" Comment="" SingleTextLine="Retrieves the current time from a specified SNTP server in order to set the RTC (v2)" Language="ST" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <FunctionBlock IdentifierNb="0" Keyword="" InitInstance="false" SymbMonExtraBytes="128" />
+  <LocalVars>
+    <Variable Name="FBEN" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="TimeSrvrAddr" Comment="" Address="" Alias="" StringSize="15" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="UTCOffset" Comment="" Address="" Alias="" StringSize="0" DataType="SINT" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="FBENO" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="Done" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="Timestamp" Comment="" Address="" Alias="" StringSize="0" DataType="RTC" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="Error" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="FBStsDesc" Comment="" Address="" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="SocketSts" Comment="" Address="" Alias="" StringSize="0" DataType="SOCK_STATUS" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="Instance" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SecsSince1900" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="1" Upper="1" />
+    </Variable>
+    <Variable Name="FBEN_RTRIG" Comment="" Address="" Alias="" StringSize="0" DataType="R_TRIG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="RA_ADDR_STRING_TO_OCTETS_1" Comment="" Address="" Alias="" StringSize="0" DataType="RA_ADDR_STRING_TO_OCTETS" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="DestAddr" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKADDR_CFG" InitialValue=",(192,168,1,201)" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SockAddr" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKADDR_CFG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SOCKET_CREATE_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_CREATE" InitialValue=",,,,4" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="CreateTimeout" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="1000" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SOCKET_OPEN_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_OPEN" InitialValue=",2(),,,FALSE" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="OpenTimeout" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="1000" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SOCKET_WRITE_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_WRITE" InitialValue=",2(),,,2(),FALSE,0" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="WriteTimeout" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="1000" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="WriteData" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="47" />
+    </Variable>
+    <Variable Name="ReadTimeout" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="10000" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="ReadData" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="47" />
+    </Variable>
+    <Variable Name="SOCKET_READ_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_READ" InitialValue=",2(),2(),,FALSE,0" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="COP_1" Comment="" Address="" Alias="" StringSize="0" DataType="COP" InitialValue=",,,,2(),,2(0),2(0)" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SOCKET_DELETE_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_DELETE" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SecsSince2016" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="LeapYear" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="i" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SecsCumulative" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="ReadDone_RTRIG" Comment="" Address="" Alias="" StringSize="0" DataType="R_TRIG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="DayOfYear" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SecsToday" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="HoursToday" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="MinsToday" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SecsThisMin" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="ZeroSocketStatus" Comment="" Address="" Alias="" StringSize="0" DataType="SOCK_STATUS" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="ZeroTimestamp" Comment="" Address="" Alias="" StringSize="0" DataType="RTC" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="CreateTrig" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="OpenTrig" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="WriteTrig" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="ReadTrig" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="DeleteTrig" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="TON_1" Comment="" Address="" Alias="" StringSize="0" DataType="TON" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="TON_Q_RTRIG" Comment="" Address="" Alias="" StringSize="0" DataType="R_TRIG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+  </LocalVars>
+  <PouBody><![CDATA[FUNCTION_BLOCK RA_SNTP_QUERY
+(* =========================================================================================================================
+	[UDFB Name]					:RA_SNTP_QUERY
+	[Category]					:Communication
+	[Description]				:Retrieves the current time from a specified SNTP server in order to set the RTC
+	[Author]					:Rockwell Automation
+	[Created using CCW Version]	:9.0
+	[Feedback]					:RASampleCode@ra.rockwell.com
+	[Revision History]			:2016-JAN - Release
+								:2016-MAR - Added 10 second startup delay, IPAddress check and Done/Error output parameters
+	[Notes]						:Works for date range of 1/1/2016 - 12/31/2035
+============================================================================================================================ *)
+FBENO:= FBEN;
+FBEN_RTRIG(FBEN);
+IF (__SYSVA_FIRST_SCAN OR FBEN_RTRIG.Q) THEN
+	Done		:= FALSE;
+	Timestamp	:= ZeroTimestamp;
+	Error		:= FALSE;
+	FBStsDesc	:= '';
+	SocketSts	:= ZeroSocketStatus;
+END_IF;
+TON_1(TRUE,T#10s);
+TON_Q_RTRIG(TON_1.Q);
+IF (FBEN AND TON_1.Q) THEN
+	IF (FBEN_RTRIG.Q OR TON_Q_RTRIG.Q) THEN
+		RA_ADDR_STRING_TO_OCTETS_1(TRUE,TimeSrvrAddr,FALSE);
+		IF RA_ADDR_STRING_TO_OCTETS_1.ValidIPAddr THEN  (* Valid NTP Server IPAddress format *)
+			DestAddr.IPAddress	:= RA_ADDR_STRING_TO_OCTETS_1.AddressOctets; (* IP address of NTP server *)
+			DestAddr.Port		:= 123; (* NTP UDP Port# *)
+			WriteData[0]		:= 11;  (* NTP Version 1, client *)
+			CreateTrig			:= FALSE;
+			SOCKET_CREATE_1(CreateTrig,2,SockAddr,CreateTimeout);
+			CreateTrig			:= TRUE;
+			SOCKET_CREATE_1(CreateTrig,2,SockAddr,CreateTimeout);
+			SocketSts	:= SOCKET_CREATE_1.Status;
+			Instance	:= SOCKET_CREATE_1.Instance;
+						
+			IF SOCKET_CREATE_1.Error THEN
+				FBStsDesc	:= 'Socket Create Error';
+				Error		:= TRUE;
+			ELSE
+				OpenTrig	:= FALSE;
+				SOCKET_OPEN_1(OpenTrig,Instance,OpenTimeout,DestAddr,);
+				WriteTrig	:= FALSE;
+				SOCKET_WRITE_1(WriteTrig,Instance,WriteTimeout,,WriteData,48,);
+				ReadTrig	:= FALSE;
+				SOCKET_READ_1(ReadTrig,Instance,ReadTimeout,48,,ReadData);
+				DeleteTrig	:= FALSE;
+				SOCKET_DELETE_1(DeleteTrig,Instance);
+				DeleteTrig	:= TRUE;
+			END_IF;
+		
+		ELSE
+			FBStsDesc	:= 'Invalid NTP server IP address format';
+			Error		:= TRUE;
+		END_IF;
+		
+	END_IF;
+	
+	IF SOCKET_CREATE_1.Done THEN
+		OpenTrig	:= TRUE;
+		SOCKET_OPEN_1(OpenTrig,Instance,OpenTimeout,DestAddr,);
+		SocketSts	:= SOCKET_OPEN_1.Status;
+		
+		IF SOCKET_OPEN_1.Error THEN
+			FBStsDesc	:= 'Socket Open Error';
+			Error		:= TRUE;
+			SOCKET_DELETE_1(DeleteTrig,Instance);
+		END_IF;
+	
+		IF SOCKET_OPEN_1.Done THEN
+			WriteTrig	:= TRUE;
+			SOCKET_WRITE_1(WriteTrig,Instance,WriteTimeout,,WriteData,48,);
+			SocketSts	:= SOCKET_WRITE_1.Status;
+			
+			IF SOCKET_WRITE_1.Error THEN
+				FBStsDesc	:= 'Socket Write Error';
+				Error		:= TRUE;
+				SOCKET_DELETE_1(DeleteTrig,Instance);
+			END_IF;
+		
+			IF SOCKET_WRITE_1.Done THEN
+				ReadTrig	:= TRUE;
+				SOCKET_READ_1(ReadTrig,Instance,ReadTimeout,48,,ReadData);
+				SocketSts	:= SOCKET_READ_1.Status;
+				
+				IF SOCKET_READ_1.Error THEN
+					FBStsDesc	:= 'Socket Read Error';
+					Error		:= TRUE;
+					SOCKET_DELETE_1(DeleteTrig,Instance);
+				END_IF;
+				
+				ReadDone_RTRIG(SOCKET_READ_1.Done);
+				
+				IF ReadDone_RTRIG.Q THEN
+					SOCKET_DELETE_1(DeleteTrig,Instance);
+					FBStsDesc	:= 'Success';
+					COP_1(TRUE,ReadData,40,SecsSince1900,0,1,FALSE);
+					
+					IF SecsSince1900[1]>=3660595200 AND SecsSince1900[1]<4291747200 THEN
+						IF (UTCOffset>0 AND UTCOffset<=12) THEN
+							SecsSince2016	:= SecsSince1900[1]-3660595200+ANY_TO_UDINT(UTCOffset)*3600;
+						ELSIF (UTCOffset<0 AND UTCOffset>=-12) THEN
+							SecsSince2016	:= SecsSince1900[1]-3660595200-ANY_TO_UDINT(-UTCOffset)*3600;
+						ELSE
+							SecsSince2016	:= SecsSince1900[1]-3660595200;
+						END_IF;
+						
+						SecsCumulative	:= 0;
+						
+						FOR i := 0 TO 19 BY 1 DO
+						
+							IF (i=0 OR i=4 OR i=8 OR i=12 OR i=16) THEN
+								LeapYear:= 1;
+							ELSE
+								LeapYear:= 0;
+							END_IF;
+							
+							SecsCumulative:= SecsCumulative+31536000+(LeapYear*86400);
+							
+							IF SecsSince2016=SecsCumulative THEN
+								Timestamp.Year		:= ANY_TO_UINT(i+2017);
+								Timestamp.Month 	:= 1;
+								Timestamp.Day		:= 1;
+								Timestamp.Hours		:= 0;
+								Timestamp.Minutes	:= 0;
+								Timestamp.Seconds	:= 0;
+								i := 19;
+							ELSIF SecsSince2016<SecsCumulative THEN
+								Timestamp.Year	:= ANY_TO_UINT(i+2016);
+								DayOfYear		:= (365+LeapYear)-(SecsCumulative-SecsSince2016)/(86400);
+								IF (86400*((SecsCumulative-SecsSince2016)/86400))=(SecsCumulative-SecsSince2016) THEN
+									DayOfYear	:= DayOfYear+1;
+								END_IF;
+																
+								IF DayOfYear<=31 THEN
+									Timestamp.Month := 1; Timestamp.Day:= ANY_TO_UINT(DayOfYear);
+								ELSIF DayOfYear<=59+LeapYear THEN
+									Timestamp.Month := 2; Timestamp.Day:= ANY_TO_UINT(DayOfYear-31);
+								ELSIF DayOfYear<=90+LeapYear THEN
+									Timestamp.Month := 3; Timestamp.Day:= ANY_TO_UINT(DayOfYear-59-LeapYear);
+								ELSIF DayOfYear<=120+LeapYear THEN
+									Timestamp.Month := 4; Timestamp.Day:= ANY_TO_UINT(DayOfYear-90-LeapYear);
+								ELSIF DayOfYear<=151+LeapYear THEN
+									Timestamp.Month := 5; Timestamp.Day:= ANY_TO_UINT(DayOfYear-120-LeapYear);
+								ELSIF DayOfYear<=181+LeapYear THEN
+									Timestamp.Month := 6; Timestamp.Day:= ANY_TO_UINT(DayOfYear-151-LeapYear);
+								ELSIF DayOfYear<=212+LeapYear THEN
+									Timestamp.Month := 7; Timestamp.Day:= ANY_TO_UINT(DayOfYear-181-LeapYear);
+								ELSIF DayOfYear<=243+LeapYear THEN
+									Timestamp.Month := 8; Timestamp.Day:= ANY_TO_UINT(DayOfYear-212-LeapYear);
+								ELSIF DayOfYear<=273+LeapYear THEN
+									Timestamp.Month := 9; Timestamp.Day:= ANY_TO_UINT(DayOfYear-243-LeapYear);
+								ELSIF DayOfYear<=304+LeapYear THEN
+									Timestamp.Month := 10; Timestamp.Day:= ANY_TO_UINT(DayOfYear-273-LeapYear);
+								ELSIF DayOfYear<=334+LeapYear THEN
+									Timestamp.Month := 11; Timestamp.Day:= ANY_TO_UINT(DayOfYear-304-LeapYear);
+								ELSIF DayOfYear<=365+LeapYear THEN
+									Timestamp.Month := 12; Timestamp.Day:= ANY_TO_UINT(DayOfYear-334-LeapYear);
+								END_IF;
+								
+								SecsToday	:= SecsSince2016-(SecsCumulative-(86400*(365+LeapYear-DayOfYear+1)));
+								HoursToday	:= SecsToday/3600;
+								MinsToday	:= (SecsToday-HoursToday*3600)/60;
+								SecsThisMin	:= SecsToday-HoursToday*3600-MinsToday*60;
+								Timestamp.Hours		:= ANY_TO_UINT(HoursToday);
+								Timestamp.Minutes	:= ANY_TO_UINT(MinsToday);
+								Timestamp.Seconds	:= ANY_TO_UINT(SecsThisMin);
+								i 	:= 19;
+								Done:= TRUE;
+							END_IF;
+							
+						END_FOR;
+					ELSE
+						FBStsDesc	:= 'Timestamp outside of date range 1/1/2016 - 12/31/2035';
+						Error		:= TRUE;	
+					END_IF;
+					
+				END_IF;
+				
+			END_IF;
+		
+		END_IF;
+	
+	END_IF;
+
+END_IF;
+
+END_FUNCTION_BLOCK]]></PouBody>
+</Pou>

@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="RA_DNS_RESOLVE_HOST_NAME_v2" ElementGuid="c5b1814b-7d88-4c56-ae8e-0b3aa900616e" Comment="" SingleTextLine="Resolve host name into IP address" Language="ST" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <FunctionBlock IdentifierNb="0" Keyword="" InitInstance="false" SymbMonExtraBytes="128" />
+  <LocalVars>
+    <Variable Name="FBEN" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="HostName" Comment="" Address="" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="DNSIPaddr" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="3" />
+    </Variable>
+    <Variable Name="FBENO" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="Done" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="HostIPaddr" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="3" />
+    </Variable>
+    <Variable Name="SocError" Comment="" Address="" Alias="" StringSize="0" DataType="SOCK_STATUS" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="ErrDscrptn" Comment="" Address="" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="outputBytes" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="79" />
+    </Variable>
+    <Variable Name="resvoleDomainSeq" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="x" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="internalHostName" Comment="" Address="" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="1" Upper="1" />
+    </Variable>
+    <Variable Name="NumOfChar" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="y" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="COP_1" Comment="" Address="" Alias="" StringSize="0" DataType="COP" InitialValue=",,,,2(),,2(0),2(0)" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="COP_2" Comment="" Address="" Alias="" StringSize="0" DataType="COP" InitialValue=",,,,2(),,2(0),2(0)" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="n" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="computeProtocolSeq" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="transID" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="1" Upper="1" />
+    </Variable>
+    <Variable Name="protocolBytes" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="255" />
+    </Variable>
+    <Variable Name="COP_3" Comment="" Address="" Alias="" StringSize="0" DataType="COP" InitialValue=",,,,2(),,2(0),2(0)" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="byteLength" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="resolveDNSseq" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SOCKET_CREATE_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_CREATE" InitialValue=",,,,4" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="createSoc" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="socType" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="createSocAddr" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKADDR_CFG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SOCKET_OPEN_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_OPEN" InitialValue=",2(),,,FALSE" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="openSoc" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="DNSinstance" Comment="" Address="" Alias="" StringSize="0" DataType="UDINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="openDestAddr" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKADDR_CFG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SOCKET_READ_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_READ" InitialValue=",2(),2(),,FALSE,0" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="readSoc" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="readData" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="255" />
+    </Variable>
+    <Variable Name="SOCKET_WRITE_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_WRITE" InitialValue=",2(),,,2(),FALSE,0" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="writeSoc" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="udpServeAddr" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKADDR_CFG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="delSoc" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="SOCKET_DELETE_1" Comment="" Address="" Alias="" StringSize="0" DataType="SOCKET_DELETE" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="COP_4" Comment="" Address="" Alias="" StringSize="0" DataType="COP" InitialValue=",,,,2(),,2(0),2(0)" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="Error" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="ErrorID" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="readData_reg" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="FBEN_RTRIG" Comment="" Address="" Alias="" StringSize="0" DataType="R_TRIG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+  </LocalVars>
+  <PouBody><![CDATA[FUNCTION_BLOCK RA_DNS_RESOLVE_HOST_NAME_v2
+(* =========================================================================================================================
+	[UDFB Name]					:RA_DNS_RESOLVE_HOST_NAME_v2
+	[Category]					:Communication
+	[Description]				:Resolve host name into IP address
+	[Author]					:Rockwell Automation
+	[Version]					:2.0
+	[Feedback]					:RASampleCode@ra.rockwell.com
+	[Revision History]			:2018-Oct - Release
+								:2023-April - Minor updates
+	[Notes]						:
+============================================================================================================================ *)
+
+IF __SYSVA_FIRST_SCAN THEN
+	Done := FALSE;
+END_IF;
+
+FBEN_RTRIG(FBEN);
+IF FBEN THEN
+	FBENO := TRUE;
+	
+	IF FBEN_RTRIG.Q THEN
+		resolveDNSseq := 1;
+	END_IF;
+	
+	CASE resolveDNSseq OF
+		1: (*Initialize socket parameters*)
+			openDestAddr.Port := 53;
+			openDestAddr.IPAddress[0] := DNSIPaddr[0];
+			openDestAddr.IPAddress[1] := DNSIPaddr[1];
+			openDestAddr.IPAddress[2] := DNSIPaddr[2];
+			openDestAddr.IPAddress[3] := DNSIPaddr[3];
+			socType := 2;
+			createSoc := FALSE;
+			openSoc := FALSE;
+			readSoc := FALSE;
+			writeSoc := FALSE;
+			delSoc	:= FALSE;
+			Done	:= FALSE;
+			FOR readData_reg := 0 TO 255 BY 1 DO
+				readData[readData_reg] := 0;
+			END_FOR;
+			
+			SocError.ErrorID := 0;
+			SocError.SubErrorID := 0;
+			SocError.StatusBits := 0;
+			
+			DNSinstance := 0;
+			
+			Error := FALSE;
+			ErrorID := 0;
+			ErrDscrptn := '';
+			
+			HostIPaddr[0] := 0;
+			HostIPaddr[1] := 0;
+			HostIPaddr[2] := 0;
+			HostIPaddr[3] := 0;
+					
+			resolveDNSseq := 10;
+		
+		10:
+			createSoc := TRUE;
+			openSoc	:= FALSE;
+			IF SOCKET_CREATE_1.Error THEN
+				SocError.ErrorID := SOCKET_CREATE_1.Status.ErrorID;
+				SocError.SubErrorID := SOCKET_CREATE_1.Status.SubErrorID;
+				SocError.StatusBits := SOCKET_CREATE_1.Status.StatusBits;
+				ErrDscrptn:= 'Error while creating socket. Check Socket Error Code in Help';
+				createSoc := FALSE;
+			ELSIF createSoc and SOCKET_CREATE_1.Done THEN
+				DNSinstance := SOCKET_CREATE_1.Instance;
+				SocError.ErrorID := 0;
+				SocError.SubErrorID := 0;
+				SocError.StatusBits := 0;
+				ErrDscrptn := '';
+				createSoc := FALSE;
+				resolveDNSseq := 20;
+			END_IF;
+			
+		20:
+			openSoc := TRUE;
+			readSoc := FALSE;
+			IF SOCKET_OPEN_1.Error THEN
+				SocError.ErrorID := SOCKET_OPEN_1.Status.ErrorID;
+				SocError.SubErrorID := SOCKET_OPEN_1.Status.SubErrorID;
+				SocError.StatusBits := SOCKET_OPEN_1.Status.StatusBits;
+				ErrDscrptn:= 'Error while opening socket. Check Socket Error Code in Help';
+				openSoc := FALSE;
+			ELSIF openSoc AND SOCKET_OPEN_1.Done THEN
+				SocError.ErrorID := 0;
+				SocError.SubErrorID := 0;
+				SocError.StatusBits := 0;
+				ErrDscrptn := '';
+				openSoc := FALSE;
+				resolveDNSseq := 30;
+			END_IF;
+		
+		30:
+			readSoc := TRUE;
+			IF SOCKET_READ_1.Error THEN
+				SocError.ErrorID := SOCKET_READ_1.Status.ErrorID;
+				SocError.SubErrorID := SOCKET_READ_1.Status.SubErrorID;
+				SocError.StatusBits := SOCKET_READ_1.Status.StatusBits;
+				ErrDscrptn:= 'Error while  reading remote. Check Socket Error Code in Help';
+			
+			ELSIF readSoc AND SOCKET_READ_1.Busy THEN
+				writeSoc := FALSE;
+				resvoleDomainSeq := 1;
+				resolveDNSseq := 40;
+			END_IF;
+			
+		40:
+			IF resvoleDomainSeq = 999 THEN
+				computeProtocolSeq := 1;
+				resolveDNSseq := 50;
+			END_IF;
+			
+		50:	
+			IF computeProtocolSeq = 999 THEN
+				resolveDNSseq := 60;
+			END_IF;
+			
+		60:
+			writeSoc := TRUE;
+			IF SOCKET_WRITE_1.Error THEN
+				SocError.ErrorID := SOCKET_WRITE_1.Status.ErrorID;
+				SocError.SubErrorID := SOCKET_WRITE_1.Status.SubErrorID;
+				SocError.StatusBits := SOCKET_WRITE_1.Status.StatusBits;
+				ErrDscrptn:= 'Error while writing to remote. Check Socket Error Code in Help';
+			
+			ELSIF writeSoc AND SOCKET_WRITE_1.Done THEN
+				resolveDNSseq := 900;
+			END_IF;
+		
+		900:
+			IF delSoc = FALSE and SOCKET_READ_1.Done THEN
+				delSoc := TRUE;
+			ELSIF delsoc AND SOCKET_DELETE_1.Error THEN
+				SocError.ErrorID := SOCKET_DELETE_1.Status.ErrorID;
+				SocError.SubErrorID := SOCKET_DELETE_1.Status.SubErrorID;
+				SocError.StatusBits := SOCKET_DELETE_1.Status.StatusBits;
+				ErrDscrptn:= 'Error while closing socket. Check Socket Error Code in Help';
+			ELSIF delSoc AND SOCKET_DELETE_1.Done THEN
+				resolveDNSseq := 990;
+			END_IF;
+		
+		990:
+			IF readData[2]=129 and readData[3]=131 THEN
+				SocError.ErrorID := 99;
+				SocError.SubErrorID := 999; (*Reserved for future development*)
+				ErrDscrptn:= 'No Such Host name. Please check host name.';
+			
+			ELSE
+				COP_4(TRUE, readData, ANY_TO_uint(SOCKET_READ_1.RxLength-4), HostIPaddr, 0, 4, FALSE);
+				IF COP_4.Sts = 1 THEN
+					resolveDNSseq := 999;
+					Done		 := TRUE;
+				END_IF;
+			END_IF;
+	ELSE
+		(*place your code here*)
+	END_CASE;
+	
+	SOCKET_CREATE_1(createSoc, socType,createSocAddr, 0);
+	SOCKET_OPEN_1(openSoc, DNSinstance, 0, openDestAddr, FALSE);
+	SOCKET_READ_1(readSoc, DNSinstance, 8640000, 256, 0, readData);	
+	SOCKET_WRITE_1(writeSoc, DNSinstance, 0, udpServeAddr, protocolBytes, any_to_uint(byteLength), 0);
+	SOCKET_DELETE_1(delSoc, DNSinstance);
+	
+	CASE computeProtocolSeq OF
+		1: (*place your code here*)
+			transID[1] := transID[1] + 1;
+			COP_2(TRUE, transID, 0, protocolBytes, 	0, 2, false);
+			computeProtocolSeq := computeProtocolSeq + 1;
+		
+		2:
+			(*DNS Standard Query*)
+			protocolBytes[2] := 1;
+			protocolBytes[3] := 0;
+			(*Question*)
+			protocolBytes[4] := 0;
+			protocolBytes[5] := 1;
+			(*Answer RRs*)
+			protocolBytes[6] := 0; 
+			protocolBytes[7] := 0; 
+			(*Auth RRs*)
+			protocolBytes[8] := 0; 
+			protocolBytes[9] := 0; 
+			(*Additional RRs*)
+			protocolBytes[10] := 0; 
+			protocolBytes[11] := 0; 
+			
+			COP_3(TRUE, outputBytes, 0, protocolBytes, 12, any_to_uint(x), FALSE);
+			computeProtocolSeq := computeProtocolSeq + 1;
+		
+		3:
+			x := 11 + x;
+			protocolBytes[x]:= 0;
+			protocolBytes[x+1]:= 0;
+			protocolBytes[x+2]:= 1;
+			protocolBytes[x+3]:= 0;
+			protocolBytes[x+4]:= 1;
+			computeProtocolSeq := computeProtocolSeq + 1;
+		4:
+			byteLength := x + 5;
+			computeProtocolSeq := 999;
+	
+	
+	ELSE
+		(*place your code here*)
+	END_CASE;
+	
+	CASE resvoleDomainSeq OF
+		1: (*initialize pointer*)
+			x := 0;
+			NumOfChar := MLEN(HostName);
+			internalHostName[1] := HostName;
+			resvoleDomainSeq		 := 10;
+			
+		10:
+			n := FIND(internalHostName[1], '.');
+			IF n <> 0 THEN
+				y := n;
+			ELSE
+				y := MLEN(internalHostName[1])+1;
+			END_IF;
+			
+			resvoleDomainSeq	:= 20;
+			
+		20:
+			COP_1(TRUE, internalHostName, 0, outputBytes, ANY_TO_UINT(x), ANY_TO_UINT(y), true);
+			x := x+y;
+			NumOfChar := MLEN(internalHostName[1]);
+			resvoleDomainSeq := 30;
+		
+		30:
+			
+			internalHostName[1] := right(internalHostName[1], (NumOfChar-y));	
+			IF MLEN(internalHostName[1]) <> 0 THEN
+				resvoleDomainSeq := 10;
+			ELSE
+				resvoleDomainSeq := 900;
+			END_IF;
+		
+		900:
+			outputBytes[x] := 0;
+			x := x + 1;
+			resvoleDomainSeq := 999;
+		
+		ELSE
+		(*place your code here*)
+	END_CASE;
+
+ELSE
+	FBENO := FALSE;
+END_IF;
+END_FUNCTION_BLOCK]]></PouBody>
+</Pou>

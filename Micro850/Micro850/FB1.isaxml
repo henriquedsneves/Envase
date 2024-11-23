@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="FB1" ElementGuid="c2fd5792-08c4-496e-963a-fa4a92dea22c" Comment="" SingleTextLine="" Language="ST" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <FunctionBlock IdentifierNb="0" Keyword="" InitInstance="false" SymbMonExtraBytes="128" />
+  <LocalVars>
+    <Variable Name="dataPointer" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="topicData" Comment="" Address="" Alias="" StringSize="252" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0">
+      <Dimension Lower="1" Upper="10" />
+    </Variable>
+    <Variable Name="Mensagem" Comment="" Address="" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="lastValue" Comment="" Address="" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="1" Upper="10" />
+    </Variable>
+    <Variable Name="z" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="posValue" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+  </LocalVars>
+  <PouBody><![CDATA[FUNCTION_BLOCK FB1
+IF dataPointer >= 2 AND dataPointer <> posValue THEN
+posValue := dataPointer;
+z := z + 1;
+lastValue[1] := topicData[z];
+Mensagem := lastValue[1];
+END_IF;
+
+IF posValue = 11 AND z = 10 THEN
+posValue := 0;
+z := 0;
+END_IF;
+END_FUNCTION_BLOCK]]></PouBody>
+</Pou>

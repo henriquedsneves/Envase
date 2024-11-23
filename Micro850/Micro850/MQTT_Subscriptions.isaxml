@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="MQTT_Subscriptions" ElementGuid="ac2049ef-40b7-456e-8390-4e45e9496e67" Comment="" SingleTextLine="" Language="ST" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <Program />
+  <LocalVars>
+    <Variable Name="initialize" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="i" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="cop_1" Comment="" Address="" Alias="" StringSize="0" DataType="COP" InitialValue=",,,,2(),,2(0),2(0)" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="subscribeID" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="">
+      <Dimension Lower="1" Upper="1" />
+    </Variable>
+    <Variable Name="subscribeRTrig" Comment="" Address="" Alias="" StringSize="0" DataType="R_TRIG" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="maxSubscriptions" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="10" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="enableSubscriptions" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="dataPointerPrev" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="j" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+  </LocalVars>
+  <PouBody><![CDATA[PROGRAM MQTT_Subscriptions
+(* 
+	The purpose of this program is to subscribe to an entire 'Subscriptions' array of preconfigured topics.
+	Set the array dimension of global variable 'Subscriptions' to the desired size and change the initial value of local variable 'maxSubscriptions' to match size of the array
+	(default=10). 'Subscriptions' is a User-defined Data Type (UDT) array consisting of the MQTT topic 'Name', the latest topic 'Data', a timestamp based on the RTC value when 
+	the latest topic 'Data' was received and a 'Subscribed' indicator.
+	Enter in the desired topic names to subscribe to as initial values for Subscriptions[i].Name before downloading the project to the controller.
+	Local variable 'enableSubcriptions' must be TRUE in order to enable this functionality.
+*)
+
+IF __SYSVA_FIRST_SCAN THEN
+	initialize := TRUE;
+	FOR i := 1 TO maxSubscriptions DO
+		Subscriptions[i].Subscribed := FALSE;
+	END_FOR;
+	i := 1;
+	dataPointerPrev := dataPointer;
+END_IF;
+
+IF NOT enableSubscriptions THEN
+	RETURN;
+END_IF;
+
+IF initialize AND MQTTsocketSts=9 THEN
+	cop_1(TRUE, resultData, 2, subscribeID, 0, 1, FALSE);
+	subscribeRTrig(subscribe);
+	IF NOT subscribe THEN
+		topicName_input := Subscriptions[i].Name;
+		IF topicName_input='' THEN
+			initialize := FALSE;
+		ELSE
+			subscribe := TRUE;
+		END_IF;
+	END_IF;
+	subscribeRTrig(subscribe);
+	IF subscribe AND NOT subscribeRTrig.Q AND resultData[1]=144 AND subscribeID[1]=ANY_TO_UINT(uniqueSubIden) THEN
+		Subscriptions[i].Subscribed := TRUE;
+		subscribe := FALSE;
+		IF i<maxSubscriptions THEN
+			i := i+1;
+		ELSE
+			initialize := FALSE;
+		END_IF;
+	END_IF;
+END_IF;
+
+IF NOT initialize AND dataPointer<11 AND dataPointer<>dataPointerPrev THEN
+	FOR j := 1 TO 10 DO
+		IF Subscriptions[j].Name=topicName[dataPointerPrev] THEN
+			Subscriptions[j].Data := topicData[dataPointerPrev];
+			Subscriptions[j].Timestamp := RTCTime;
+		END_IF;
+	END_FOR;
+	dataPointerPrev := dataPointer;
+END_IF;	
+
+
+END_PROGRAM]]></PouBody>
+</Pou>

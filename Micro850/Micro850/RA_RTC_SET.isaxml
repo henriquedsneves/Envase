@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="RA_RTC_SET" ElementGuid="2f1f9b6e-1f84-429b-83a6-c1efcb2c9294" Comment="" SingleTextLine="Set Micro800 RTC on an exception basis" Language="ST" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <FunctionBlock IdentifierNb="0" Keyword="" InitInstance="false" SymbMonExtraBytes="128" />
+  <LocalVars>
+    <Variable Name="FBEN" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="RTCData" Comment="" Address="" Alias="" StringSize="0" DataType="RTC" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="FBENO" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="RTCSts" Comment="" Address="" Alias="" StringSize="7" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="RTC_SET_1" Comment="" Address="" Alias="" StringSize="0" DataType="RTC_SET" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="Year" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="Month" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="Day" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="Hours" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="Minutes" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+    <Variable Name="Seconds" Comment="" Address="" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+  </LocalVars>
+  <PouBody><![CDATA[FUNCTION_BLOCK RA_RTC_SET
+(*=====================================================================================================================================
+	[UDFB Name]					:RA_RTC_SET     
+	[Category]					:Control
+	[Description]				:Set Micro800 RTC on an exception basis
+	[Author]					:Rockwell Automation
+	[Created using CCW version]	:8.0
+	[FeedBack]					:RASampleCode@ra.rockwell.com
+	[Revison History]			:2015-June - Original Release for Version 8
+	[Notes]						:2016-Jan - fixed Failure message condition and added first scan condition
+
+ =====================================================================================================================================*)
+
+FBENO := FBEN;
+IF __SYSVA_FIRST_SCAN THEN
+	RTCSts	:= '';
+END_IF;
+
+IF FBEN THEN
+
+	IF (RTCData.Year<>Year OR RTCData.Month<>Month OR RTCData.Day<>Day OR RTCData.Hours<>Hours OR RTCData.Minutes<>Minutes OR RTCData.Seconds<>Seconds) THEN
+		RTC_SET_1(TRUE,TRUE,RTCData);
+		IF RTC_SET_1.Sts=1 THEN
+			RTCSts	:= 'Success';
+		ELSIF RTC_SET_1.Sts=2 THEN
+			RTCSts	:= 'Failure';
+		ELSE RTCSts	:= '';
+		END_IF;
+		Year	:= RTCData.Year;
+		Month	:= RTCData.Month;
+		Day		:= RTCData.Day;
+		Hours	:= RTCData.Hours;
+		Minutes	:= RTCData.Minutes;
+		Seconds	:= RTCData.Seconds;
+	END_IF;
+
+END_IF;
+
+END_FUNCTION_BLOCK]]></PouBody>
+</Pou>

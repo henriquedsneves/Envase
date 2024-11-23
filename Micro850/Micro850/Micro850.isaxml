@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resource FileVersion="200.00.006" Name="Micro850" ResourceNb="1" ElementGuid="67383c4c-7154-4763-a230-e515450c9045" Address="@1" Comment="" SingleTextLine="" GenDebugInfo="false" Password="" ReadOnly="false" UsePrjPassword="false" Code="TicCode">
+  <Properties Test="true" TrigCycle="false" CyTiming="0" DeErrors="true" NbStErrors="16" ExecMode="true" EmbedTable="true" TypeEmbedTable="1" EmbedSource="true" TypeEmbedSource="0" SimulationCode="false" SfcGain="8" SfcOffset="18" EmbeddedSfc="false" ReadableImage="false" RealImage="false" LocExp="true" unlab="false" AriOpe="true" BooOpe="true" BooExp="true" GloExp="true" VarCpy="true" Uncod="true" MapFile="false" DumpPou="false" DumpConfig="false" DumpNetwork="false" CompileIncrementally="true" LinkIncrementally="true" CheckArray="true" ArrStr="true" OnlineMemory="184320" OnlineMemoryVariable="2048" FunctionInternalStateEnable="true" FbdBehaviorMode="1" OnlineMaxExtraPous="20" IsDisableAccessFBLocalVar="true" EnableCVT="false" MemRetain="RETAIN" ReduceBooleanExpressionEvaluation="false" IsIndirectBitAccessValidation="true" CyUsTiming="0" OnlineMemorySfc="20" LdBranchStackTemporaryVariableCreationEnable="true" />
+  <Pous>
+    <FunctionBlock Name="RA_MQTT_SUBSCRIBE_v2" ElementGuid="c71ffd3f-19df-4b53-9f69-a6447e3bce93" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_MQTT_CONNECT_v2" ElementGuid="ca9b3265-654c-4fc9-b14c-5713e1dd9a23" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_MQTT_PUBLISH_v2" ElementGuid="07b5a121-f0e0-4488-b5f8-50d38b6491f3" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_DNS_RESOLVE_HOST_NAME_v2" ElementGuid="c5b1814b-7d88-4c56-ae8e-0b3aa900616e" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_ADDR_STRING_TO_OCTETS" ElementGuid="a432b810-d759-4ee5-8a39-4f9d1896fb5c" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_RTC_SET" ElementGuid="2f1f9b6e-1f84-429b-83a6-c1efcb2c9294" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_IPADDRESS_OCTETS_TO_STRING" ElementGuid="a9ea458b-c3c0-4c68-af74-c08264413014" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_SNTP_QUERY" ElementGuid="796186c7-b941-4b88-a8a2-8a0fc1557ccb" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_SNTP_SET_RTC" ElementGuid="91270e6e-4cbd-49a7-b63c-fc5bd2554822" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="RA_PFx_ENET_STS_CMD" ElementGuid="d05a6ae1-d051-47c0-9a19-f151f7609957" Language="ST" CustomFbd="0" Is1499="false" />
+    <FunctionBlock Name="FB1" ElementGuid="c2fd5792-08c4-496e-963a-fa4a92dea22c" Language="ST" CustomFbd="0" Is1499="false" />
+    <Program Name="MQTT_Client" ElementGuid="b66d3ef5-ddb9-4351-a52b-67199b8dc8b4" Language="LD" CustomFbd="0" Is1499="false" />
+    <Program Name="MQTT_Subscriptions" ElementGuid="ac2049ef-40b7-456e-8390-4e45e9496e67" Language="ST" CustomFbd="0" Is1499="false" />
+    <Program Name="MQTT_Publications" ElementGuid="9bbc4d5d-9340-484e-918b-d61af9972612" Language="ST" CustomFbd="0" Is1499="false" />
+    <Program Name="MQTT_Main" ElementGuid="12135247-2837-499c-8b6e-6ca14ca579e7" Language="LD" CustomFbd="0" Is1499="false" />
+    <Program Name="envase" ElementGuid="3062cbd5-097e-4fc7-b215-9a27290c28c4" Language="LD" CustomFbd="0" Is1499="false" />
+    <Program Name="envase_latas" ElementGuid="cfa776c2-40bd-4538-a873-0d0ccee1e94a" Language="LD" CustomFbd="0" Is1499="false" />
+    <Program Name="empacotadora" ElementGuid="7945a655-5b88-47fe-a9f1-d9b618ff99a4" Language="LD" CustomFbd="0" Is1499="false" />
+    <Program Name="empacotadora_latas" ElementGuid="b3135ba6-eeb3-4133-9fad-8bc645f9ca81" Language="LD" CustomFbd="0" Is1499="false" />
+  </Pous>
+  <GlobalVars>
+    <Variable Name="__SYSVA_TCYWDG" Comment="Watchdog do software" Address="" Alias="" DataType="UDINT" InitialValue="2000" Modifier="NonRetain" Kind="VarGlobal" AccessRights="ReadWrite" Attributes="32501" />
+    <Variable Name="__SYSVA_USER_DATA_LOST" Comment="Dados do usuário perdidos" Address="" Alias="" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="VarGlobal" AccessRights="ReadWrite" Attributes="32501" />
+    <Variable Name="inboundData" Comment="" Address="1" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="">
+      <Dimension Lower="1" Upper="256" />
+    </Variable>
+    <Variable Name="RTCTime" Comment="" Address="1" Alias="" StringSize="0" DataType="RTC" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="DNSIPaddr" Comment="" Address="1" Alias="" StringSize="0" DataType="USINT" InitialValue="192,168,1,240" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="">
+      <Dimension Lower="0" Upper="3" />
+    </Variable>
+    <Variable Name="MQTTsocketSts" Comment="" Address="1" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="topicData" Comment="" Address="1" Alias="" StringSize="252" DataType="STRING" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="">
+      <Dimension Lower="1" Upper="10" />
+    </Variable>
+    <Variable Name="topicName" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="">
+      <Dimension Lower="1" Upper="10" />
+    </Variable>
+    <Variable Name="dataPointer" Comment="" Address="1" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="publish" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="subscribe" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="topicName_input" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="'PC_FRC_9484/topic'" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="pubData_In" Comment="" Address="1" Alias="" StringSize="252" DataType="STRING" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="pubTopic_In" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="'micro800_FRC_9484/topic'" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="subscribeDN" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="subscribeER" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="publishDN" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="publishER" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="resultData" Comment="" Address="1" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="">
+      <Dimension Lower="1" Upper="256" />
+    </Variable>
+    <Variable Name="uniqueSubIden" Comment="" Address="1" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="publishCmd" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="subscribeCmd" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="UnsubscribeCmd" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Subscriptions" Comment="" Address="1" Alias="" StringSize="0" DataType="MQTT_SUBSCRIBE" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="">
+      <Dimension Lower="1" Upper="10" />
+    </Variable>
+    <Variable Name="Publications" Comment="" Address="1" Alias="" StringSize="0" DataType="MQTT_PUBLISH" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="">
+      <Dimension Lower="1" Upper="10" />
+    </Variable>
+    <Variable Name="Desligar" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Resetar_All" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="resetarMQTT" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="velocidade_i" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="all_topics" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="all_topics_total" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="total_topics" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="velocidade_visual" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Motor_Ligado" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Motor_Desligado" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Valor_MQTT" Comment="" Address="1" Alias="" StringSize="80" DataType="STRING" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Valor_MQTT_num" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Valor_MQTT_num_final" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX3" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AbsoluteMove" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="timer_elapsed" Comment="" Address="1" Alias="" StringSize="0" DataType="TIME" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="acep1" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="acep2" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="ServoOn" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="ActualPosition" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="ActualSpeed" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="FaultCode" Comment="" Address="1" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Home" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Reset" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Jog" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="RelativeMove" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Stop" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="SetSpeed" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="100.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="SetPosition" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="SetAccel" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="1000.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="SetDecel" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="1000.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="K5100_INPUT" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Endereco" Comment="" Address="1" Alias="" StringSize="16" DataType="STRING" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="UpDate" Comment="" Address="1" Alias="" StringSize="0" DataType="UINT" InitialValue="100" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Ctrl_Ethernet" Comment="" Address="1" Alias="" StringSize="0" DataType="USINT" InitialValue="2" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Stop_Inversor" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Start_Inversor" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Jog_inversor" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Limpar_Falha" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="TRUE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Frente" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="velocidade_inversor" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Desaceleracao" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="1.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Tensao" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Tens_Barram" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Corrente" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Reverso" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Aceleracao" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="1.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Ref_Velocidad" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Freq_CMD" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Na_Velocidade" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="CMD_Reverso" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="CMD_Frente" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Rodando" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Pronto" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Falha" Comment="" Address="1" Alias="" StringSize="0" DataType="UINT" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Falha_Drive" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Tipo_Drive" Comment="" Address="1" Alias="" StringSize="16" DataType="STRING" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Perda_Dados" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Erro" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX1" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="preparado" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="position_botlle" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op3" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op4" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="esteira_lata1" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_esteira_lata1" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="position_tri" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="ligar" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="resetar" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_liquido" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_tampa" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="botao_ihm" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op5" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op6" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op7" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="val_pos_1" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="96.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="val_pos_2" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="69.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="pronto_envase" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="val_pos_1_1" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="96.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="val_pos_2_2" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="69.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_garrafa1" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_esteira_lata2" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_esteira_lata3" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1_1" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1_3" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1_4" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1_5" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1_6" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1_7" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2_1" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2_2" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2_4" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2_5" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2_6" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2_7" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="esteira_lata2" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="esteira_lata3" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="esteira" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="TRUE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_garrafas_ver" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="109.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2_a" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1_a" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="automatico" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="autonomo" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="velocidade_esteira" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.09" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="latas_produzidas" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_esteira_lata4" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op3_p" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="empacotomanto" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="esteira_empacotamento" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="pronto_empacotamento" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="botao_parar_ihm" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="latas_empacotando" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="autonomo_empacotadora" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="posicao_esteira_engradado" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="206.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="esteira_engradado" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="engradados_produzidos" Comment="" Address="1" Alias="" StringSize="0" DataType="REAL" InitialValue="0.0" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op1_padrao" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op2_padrao" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="op3_padrao" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="FALSE" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="esteira_motor_lata4" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="esteira_motor_engradado" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="teste" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="teste2" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX2" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="servor_motor_ligar" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="servor_motor_desligar" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX1_SERVO" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX2_SERVO" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="servor_motor_ligar_parte2" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="servor_motor_desligar_parte2" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX1_SERVO_1" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX2_SERVO_1" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="ligar_MQTT" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Desligar_MQTT" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="Autonomo_MQTT" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX4" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX5" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="engradados_mqtt" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="latas_mqtt" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+    <Variable Name="AUX6" Comment="" Address="1" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="4" GroupName="" />
+  </GlobalVars>
+  <ExportedGroups />
+  <ImportedGroups />
+  <Groups />
+  <Devices>
+    <Device PackageName="AB_" DriverName="OPTIMUS_" Name="IO_Base" Index="0" NbChannels="0" IsVirtual="false" Order="1" Alias="" Comment="">
+      <DeviceList>
+        <Device Index="0" NbChannels="10" Order="0" SimpleOfComplexOrder="0">
+          <IOSymbols AllIOSymbols="true">
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="0" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="0" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_00">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="1" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="1" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_01">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="2" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="2" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_02">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="3" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="3" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_03">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="4" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="4" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_04">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="5" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="5" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_05">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="6" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="6" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_06">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="7" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="7" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_07">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="8" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="8" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_08">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="9" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="9" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DO_09">
+              <ChannelParameterInstances />
+            </IOSymbol>
+          </IOSymbols>
+        </Device>
+        <Device Index="0" NbChannels="14" Order="0" SimpleOfComplexOrder="1">
+          <IOSymbols AllIOSymbols="true">
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="0" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="0" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_00">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="1" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="1" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_01">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="2" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="2" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_02">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="3" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="3" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_03">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="4" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="4" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_04">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="5" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="5" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_05">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="6" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="6" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_06">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="7" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="7" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_07">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="8" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="8" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_08">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="9" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="9" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_09">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="10" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="10" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_10">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="11" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="11" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_11">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="12" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="12" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_12">
+              <ChannelParameterInstances />
+            </IOSymbol>
+            <IOSymbol GainA="1" GainB="1" Offset="1" Order="13" GainAf="1" GainBf="1" OffsetF="1" PhysicalOrder="13" Alias="" Comment="" Address="1" IsComplexMember="false" ConvFunctio="" SymbolName="_IO_EM_DI_13">
+              <ChannelParameterInstances />
+            </IOSymbol>
+          </IOSymbols>
+        </Device>
+      </DeviceList>
+      <IOSymbols AllIOSymbols="true" />
+    </Device>
+  </Devices>
+  <NetworkParameterValues>
+    <NetworkParameterValue NetworkName="HSD" Name="ValidityTime" Value="0" />
+    <NetworkParameterValue NetworkName="ETCP" Name="TimeOut" Value="10000" />
+  </NetworkParameterValues>
+</Resource>

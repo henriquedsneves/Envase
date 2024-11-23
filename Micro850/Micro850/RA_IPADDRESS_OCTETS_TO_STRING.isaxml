@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="RA_IPADDRESS_OCTETS_TO_STRING" ElementGuid="a9ea458b-c3c0-4c68-af74-c08264413014" Comment="" SingleTextLine="Converts four USINT octet values to IP address string." Language="ST" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <FunctionBlock IdentifierNb="0" Keyword="" InitInstance="false" SymbMonExtraBytes="128" />
+  <LocalVars>
+    <Variable Name="FBEN" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="IPAddressOctets" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="3" />
+    </Variable>
+    <Variable Name="FBENO" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="IPAddressString" Comment="" Address="" Alias="" StringSize="15" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="FBEN_RTRIG" Comment="" Address="" Alias="" StringSize="0" DataType="R_TRIG" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0" />
+  </LocalVars>
+  <PouBody><![CDATA[FUNCTION_BLOCK RA_IPADDRESS_OCTETS_TO_STRING
+FBENO	:= FBEN;
+FBEN_RTRIG(FBEN);
+IF (__SYSVA_FIRST_SCAN AND FBEN) OR FBEN_RTRIG.Q THEN
+	IPAddressString	:= ANY_TO_STRING(IPAddressOctets[0])+'.'+ANY_TO_STRING(IPAddressOctets[1])+'.'+ANY_TO_STRING(IPAddressOctets[2])+'.'+ANY_TO_STRING(IPAddressOctets[3]);
+END_IF;
+
+END_FUNCTION_BLOCK]]></PouBody>
+</Pou>

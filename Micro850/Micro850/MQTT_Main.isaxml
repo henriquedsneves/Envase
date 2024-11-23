@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="MQTT_Main" ElementGuid="12135247-2837-499c-8b6e-6ca14ca579e7" Comment="" SingleTextLine="" Language="LD" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <Program />
+  <LocalVars>
+    <Variable Name="RA_PFx_ENET_STS_CMD_1" Comment="" Address="" Alias="" StringSize="0" DataType="RA_PFx_ENET_STS_CMD" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="FB1_1" Comment="" Address="" Alias="" StringSize="0" DataType="FB1" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="latas_produzidas_int" Comment="" Address="" Alias="" StringSize="0" DataType="INT" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="engradados_produzidos_int" Comment="" Address="" Alias="" StringSize="0" DataType="INT" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+  </LocalVars>
+  <PouBody><![CDATA[PROGRAM MQTT_Main
+#info= QLD
+BOF
+
+
+(**)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*_IO_EM_DI_01*) (**)  OTE  [2,0] (*Limpar_Falha*) (**)
+EOR [3,0]
+
+
+(**)
+
+SOR  [0,3] (**) (**)  FB  [1,0] (*FB1*) (*FB1_1*) ( (*EN:EN*)(**) (**)  , (*dataPointer:*)(*dataPointer*) (**)  , (*topicData:*)(*topicData*) (**) ; (*ENO:ENO*)(**) (**)  , (*Mensagem:*)(*Valor_MQTT*) (**) )
+EOR [4,0]
+
+
+(**)
+
+SOR  [0,7] (**) (**)  
+ BST  
+ BST  FB  [1,0] (*=*) (*16*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Valor_MQTT*) (**)  , (*i2:*)(*'Ligar'*) (**) ; (*o1:*)(**) (**) )  FB  [4,0] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*publishCmd*) (**) )  FB  [7,0] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'Dispositivo ligado!'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubData_In*) (**) )  
+ BST  OTP  [10,0] (*AUX1*) (**)
+   NXB  OTE  [10,1] (*ligar_MQTT*) (**)
+ BND
+
+   NXB  
+ BST  FB  [1,3] (*=*) (*16*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Valor_MQTT*) (**)  , (*i2:*)(*'Aut_Ligado'*) (**) ; (*o1:*)(**) (**) )  FB  [4,3] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*publishCmd*) (**) )  FB  [7,3] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'micro800_FRC_9484/topic'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubTopic_In*) (**) )  FB  [10,3] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'Autonomo ligado!'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubData_In*) (**) )  
+ BST  OTP  [13,3] (*AUX3*) (**)
+   NXB  OTS  [13,4] (*automatico*) (**)
+ BND
+
+   NXB  FB  [1,6] (*=*) (*16*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Valor_MQTT*) (**)  , (*i2:*)(*'Aut_Desligado'*) (**) ; (*o1:*)(**) (**) )  FB  [4,6] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*publishCmd*) (**) )  FB  [7,6] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'micro800_FRC_9484/topic'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubTopic_In*) (**) )  FB  [10,6] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'Autonomo desligado!'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubData_In*) (**) )  
+ BST  OTP  [13,6] (*AUX4*) (**)
+   NXB  OTR  [13,7] (*automatico*) (**)
+ BND
+
+ BND
+
+ BND
+
+   NXB  FB  [1,9] (*=*) (*16*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*Valor_MQTT*) (**)  , (*i2:*)(*'Desligar'*) (**) ; (*o1:*)(**) (**) )  FB  [4,9] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*publishCmd*) (**) )  FB  [7,9] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'micro800_FRC_9484/topic'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubTopic_In*) (**) )  FB  [10,9] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'Dispositivo desligado!'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubData_In*) (**) )  
+ BST  OTP  [13,9] (*AUX2*) (**)
+   NXB  OTE  [13,10] (*Desligar_MQTT*) (**)
+ BND
+
+ BND
+
+EOR [14,0]
+
+
+(**)
+
+SOR  [0,20] (**) (**)  XIC  [1,0] (*latas_mqtt*) (**)  FB  [2,0] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*publishCmd*) (**) )  FB  [5,0] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'micro800_FRC_9484/topic_latas'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubTopic_In*) (**) )  FB  [8,0] (*ANY_TO_INT*) (*34*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*latas_produzidas*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*latas_produzidas_int*) (**) )  FB  [11,0] (*ANY_TO_STRING*) (*33*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*latas_produzidas_int*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubData_In*) (**) )  
+ BST  OTP  [14,0] (*AUX5*) (**)
+   NXB  
+ BST XIL [14,1] (**) (**)
+   NXB  FB  [14,2] (*1 gain*) (*30*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*latas_mqtt*) (**) )
+ BND
+
+ BND
+
+EOR [17,0]
+
+
+(**)
+
+SOR  [0,25] (**) (**)  XIC  [1,0] (*engradados_mqtt*) (**)  FB  [2,0] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*publishCmd*) (**) )  FB  [5,0] (*1 gain*) (*24*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*'micro800_FRC_9484/topic_engradados'*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubTopic_In*) (**) )  FB  [8,0] (*ANY_TO_INT*) (*35*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*engradados_produzidos*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*engradados_produzidos_int*) (**) )  FB  [11,0] (*ANY_TO_STRING*) (*33*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*engradados_produzidos_int*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*pubData_In*) (**) )  
+ BST  OTP  [14,0] (*AUX6*) (**)
+   NXB  
+ BST XIL [14,1] (**) (**)
+   NXB  FB  [14,2] (*1 gain*) (*32*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*engradados_mqtt*) (**) )
+ BND
+
+ BND
+
+EOR [17,0]
+
+
+(**)
+
+SOR  [0,30] (**) (**)  FB  [1,0] (*RA_PFx_ENET_STS_CMD*) (*RA_PFx_ENET_STS_CMD_1*) ( (*FBEN:*)(**) (**)  , (*IPAddress:*)(*Endereco*) (**)  , (*UpdateRate_ms:*)(*UpDate*) (**)  , (*EnetCtrlTO_sec:*)(*Ctrl_Ethernet*) (**)  , (*Stop:*)(*Stop_Inversor*) (**)  , (*Start:*)(*Start_Inversor*) (**)  , (*Jog:*)(*Jog*) (**)  , (*ClrFault:*)(*Limpar_Falha*) (**)  , (*SetFwd:*)(*Frente*) (**)  , (*SetRev:*)(*Reverso*) (**)  , (*SpeedRef:*)(*velocidade_inversor*) (**)  , (*AccelTime1:*)(*Aceleracao*) (**)  , (*DecelTime1:*)(*Desaceleracao*) (**) ; (*FBENO:*)(**) (**)  , (*FBError:*)(*Erro*) (**)  , (*CommLoss:*)(*Perda_Dados*) (**)  , (*DriveType:*)(*Tipo_Drive*) (**)  , (*DriveFault:*)(*Falha_Drive*) (**)  , (*FaultCode:*)(*Falha*) (**)  , (*Ready:*)(*Pronto*) (**)  , (*Active:*)(*Rodando*) (**)  , (*CmdFwd:*)(*CMD_Frente*) (**)  , (*CmdRev:*)(*CMD_Reverso*) (**)  , (*AtRef:*)(*Na_Velocidade*) (**)  , (*CmdSpeed:*)(*Freq_CMD*) (**)  , (*SpeedFeedback:*)(*Ref_Velocidad*) (**)  , (*OutputCurrent:*)(*Corrente*) (**)  , (*DCBusVoltage:*)(*Tens_Barram*) (**)  , (*OutputVoltage:*)(*Tensao*) (**) )
+EOR [4,0]
+EOF
+#end_info
+#info= ID_MAX
+NextId=35
+#end_info
+END_PROGRAM]]></PouBody>
+</Pou>

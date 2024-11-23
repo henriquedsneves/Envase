@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="empacotadora" ElementGuid="7945a655-5b88-47fe-a9f1-d9b618ff99a4" Comment="" SingleTextLine="" Language="LD" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <Program />
+  <LocalVars />
+  <PouBody><![CDATA[PROGRAM empacotadora
+#info= QLD
+BOF
+
+
+(**)
+
+SOR  [0,1] (**) (**)  XIC  [1,0] (*empacotomanto*) (**)  XIO  [2,0] (*autonomo_empacotadora*) (**)  FB  [3,0] (*=*) (*10*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*pronto_empacotamento*) (**)  , (*i2:*)(*FALSE*) (**) ; (*o1:*)(**) (**) )  FB  [6,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*TRUE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*op3_p*) (**) )  
+ BST  OTS  [9,0] (*esteira_empacotamento*) (**)
+   NXB  
+ BST  OTS  [9,1] (*pronto_empacotamento*) (**)
+   NXB  OTR  [9,2] (*empacotomanto*) (**)
+ BND
+
+ BND
+
+EOR [10,0]
+
+
+(**)
+
+SOR  [0,5] (**) (**)  XIC  [1,0] (*autonomo_empacotadora*) (**)  FB  [2,0] (*=*) (*10*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*pronto_empacotamento*) (**)  , (*i2:*)(*FALSE*) (**) ; (*o1:*)(**) (**) )  FB  [5,0] (*ANY_TO_REAL*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*100.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*velocidade_inversor*) (**) )  FB  [8,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*TRUE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*op3_p*) (**) )  
+ BST  OTS  [11,0] (*esteira_empacotamento*) (**)
+   NXB  
+ BST  OTS  [11,1] (*pronto_empacotamento*) (**)
+   NXB  OTR  [11,2] (*empacotomanto*) (**)
+ BND
+
+ BND
+
+EOR [12,0]
+
+
+(**)
+
+SOR  [0,9] (**) (**)  XIC  [1,0] (*esteira_empacotamento*) (**)  FB  [2,0] (*+*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*velocidade_esteira*) (**)  , (*i2:*)(*posicao_esteira_lata4*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*posicao_esteira_lata4*) (**) )
+EOR [5,0]
+
+
+(**)
+
+SOR  [0,13] (**) (**)  XIC  [1,0] (*esteira_engradado*) (**)  FB  [2,0] (*+*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*velocidade_esteira*) (**)  , (*i2:*)(*posicao_esteira_engradado*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*posicao_esteira_engradado*) (**) )
+EOR [5,0]
+EOF
+#end_info
+END_PROGRAM]]></PouBody>
+</Pou>

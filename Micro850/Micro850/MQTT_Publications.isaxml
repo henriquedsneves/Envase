@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="MQTT_Publications" ElementGuid="9bbc4d5d-9340-484e-918b-d61af9972612" Comment="" SingleTextLine="" Language="ST" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <Program />
+  <LocalVars>
+    <Variable Name="i" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="maxPublications" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="10" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="enablePublications" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="j" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="ChangeOfState" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="OnDemand" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="OnDemandRTrig" Comment="" Address="" Alias="" StringSize="0" DataType="R_TRIG" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="ton_1" Comment="" Address="" Alias="" StringSize="0" DataType="TON" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="intervalTime" Comment="" Address="" Alias="" StringSize="0" DataType="TIME" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="Interval" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="intervalTimer" Comment="" Address="" Alias="" StringSize="0" DataType="TON" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="enableIntervaltimer" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Retain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+  </LocalVars>
+  <PouBody><![CDATA[PROGRAM MQTT_Publications
+(* 
+	The purpose of this program is to publish an entire 'Publications' array of preconfigured topics on either a change-of-state basis, a regularly timed basis or a one-time 
+	basis.
+	Set the array dimension of global variable 'Publications' to the desired size and change the initial value of local variable 'maxPublications' to match the size of the array
+	(default=10). 'Publications' is a User-defined Data Type (UDT) array consisting of the MQTT topic 'Name', the latest topic 'Value', the previous topic value 'Valueprev' 
+	and a timestamp based on the RTC value when the latest topic 'Value' was published.
+	Enter in the desired topic names to publish as initial values for Publications[i].Name before downloading the project to the controller.
+	Set local variable 'ChangeOfState' to TRUE in order to publish any value that changes on an exception basis.
+	Set local variable 'Interval' to TRUE and 'intervalTime' to a non-zero time value in order to publish all of the current values that aren't null ('') on a timed interval
+	basis.
+	Normally, one will choose either 'ChangeOfState' or 'Interval' as the method for publishing topic updates.
+	For a one-time update, set local variable 'OnDemand' to TRUE in order to publish all of the current values that aren't null (''). 'OnDemand' is set to FALSE once the entire
+	'Publications' array has been published.
+	Local variable 'enablePublications' must be TRUE in order to enable this program functionality.
+*)
+
+IF __SYSVA_FIRST_SCAN THEN
+	FOR i := 1 TO maxPublications DO
+		Publications[i].Value := '';
+		Publications[i].Valueprev := '';
+	END_FOR;
+	i := 1;
+END_IF;
+
+IF NOT enablePublications THEN
+	RETURN;
+END_IF;
+
+IF MQTTsocketSts=9 AND NOT (publish OR subscribeCmd OR publishCmd OR unsubscribeCmd) THEN
+	IF ChangeOfState THEN
+		FOR i := 1 TO maxPublications DO
+			IF Publications[i].Name<>'' AND Publications[i].Value<>'' AND Publications[i].Value<>Publications[i].Valueprev THEN
+				pubTopic_In := Publications[i].Name;
+				pubData_In := Publications[i].Value;
+				publish := TRUE;
+				Publications[i].Valueprev := Publications[i].Value;
+				Publications[i].Timestamp := RTCTime;
+				i := maxPublications;
+			END_IF;
+		END_FOR;
+	END_IF;
+
+	IF Interval AND intervalTime<>T#0s THEN
+		intervalTimer(enableIntervaltimer, intervalTime);
+		IF intervalTimer.Q THEN
+			OnDemand := TRUE;
+			enableIntervaltimer := FALSE;
+		ELSE
+			enableIntervaltimer := TRUE;
+		END_IF;
+	END_IF;		
+	
+	OnDemandRTrig(OnDemand);
+	IF OnDemandRTrig.Q THEN
+		j := 1;
+	END_IF;
+	
+	ton_1(NOT ton_1.Q, T#1s);
+		
+	IF OnDemand AND ton_1.Q THEN
+		IF Publications[j].Name<>'' AND Publications[j].Value<>'' THEN
+			pubTopic_In := Publications[j].Name;
+			pubData_In := Publications[j].Value;
+			publish := TRUE;
+			Publications[j].Valueprev := Publications[j].Value;
+			Publications[j].Timestamp := RTCTime;
+		END_IF;
+		IF j<maxPublications THEN
+			j := j+1;
+		ELSE
+			OnDemand := FALSE;
+		END_IF;
+	END_IF;
+END_IF;
+
+
+END_PROGRAM]]></PouBody>
+</Pou>

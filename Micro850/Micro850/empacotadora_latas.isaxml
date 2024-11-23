@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="empacotadora_latas" ElementGuid="b3135ba6-eeb3-4133-9fad-8bc645f9ca81" Comment="" SingleTextLine="" Language="LD" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <Program />
+  <LocalVars>
+    <Variable Name="TON_24" Comment="" Address="" Alias="" StringSize="0" DataType="TON" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+    <Variable Name="TON_1" Comment="" Address="" Alias="" StringSize="0" DataType="TON" InitialValue="" Modifier="NonRetain" Kind="Var" AccessRights="ReadWrite" RetainFlags="" CommentFields="" Attributes="0" GroupName="" />
+  </LocalVars>
+  <PouBody><![CDATA[PROGRAM empacotadora_latas
+#info= QLD
+BOF
+
+
+(**)
+
+SOR  [0,1] (**) (**)  FB  [1,0] (*=*) (*10*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*pronto_empacotamento*) (**)  , (*i2:*)(*TRUE*) (**) ; (*o1:*)(**) (**) )  FB  [4,0] (*>=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*posicao_esteira_lata4*) (**)  , (*i2:*)(*160.0*) (**) ; (*o1:*)(**) (**) )  FB  [7,0] (*=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*autonomo_empacotadora*) (**)  , (*i2:*)(*TRUE*) (**) ; (*o1:*)(**) (**) )  FB  [10,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*op3_p*) (**) )  FB  [13,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*posicao_esteira_lata4*) (**) )  FB  [16,0] (*+*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*1.0*) (**)  , (*i2:*)(*latas_empacotando*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*latas_empacotando*) (**) )  
+ BST  OTR  [19,0] (*esteira_empacotamento*) (**)
+   NXB  OTR  [19,1] (*pronto_empacotamento*) (**)
+ BND
+
+EOR [20,0]
+
+
+(**)
+
+SOR  [0,5] (**) (**)  FB  [1,0] (*=*) (*10*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*pronto_empacotamento*) (**)  , (*i2:*)(*TRUE*) (**) ; (*o1:*)(**) (**) )  FB  [4,0] (*>=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*posicao_esteira_lata4*) (**)  , (*i2:*)(*160.0*) (**) ; (*o1:*)(**) (**) )  FB  [7,0] (*=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*autonomo_empacotadora*) (**)  , (*i2:*)(*FALSE*) (**) ; (*o1:*)(**) (**) )  FB  [10,0] (*ANY_TO_REAL*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*velocidade_inversor*) (**) )  FB  [13,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*op3_p*) (**) )  FB  [16,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*posicao_esteira_lata4*) (**) )  FB  [19,0] (*+*) (*2*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*1.0*) (**)  , (*i2:*)(*latas_empacotando*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*latas_empacotando*) (**) )  
+ BST  OTR  [22,0] (*esteira_empacotamento*) (**)
+   NXB  OTR  [22,1] (*pronto_empacotamento*) (**)
+ BND
+
+EOR [23,0]
+
+
+(**)
+
+SOR  [0,9] (**) (**)  FB  [1,0] (*>=*) (*3*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*latas_empacotando*) (**)  , (*i2:*)(*6.0*) (**) ; (*o1:*)(**) (**) )  
+ BST  OTS  [4,0] (*esteira_engradado*) (**)
+   NXB  
+ BST  FB  [4,1] (*1 gain*) (*4*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*latas_empacotando*) (**) )
+   NXB  FB  [4,3] (*+*) (*6*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*1.0*) (**)  , (*i2:*)(*engradados_produzidos*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*engradados_produzidos*) (**) )  FB  [7,3] (*1 gain*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*TRUE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*engradados_mqtt*) (**) )
+ BND
+
+ BND
+
+EOR [10,0]
+
+
+(**)
+
+SOR  [0,16] (**) (**)  FB  [1,0] (*>=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*posicao_esteira_engradado*) (**)  , (*i2:*)(*207.0*) (**) ; (*o1:*)(**) (**) )  FB  [4,0] (*<*) (*8*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*posicao_esteira_engradado*) (**)  , (*i2:*)(*404.0*) (**) ; (*o1:*)(**) (**) )  FB  [7,0] (*ANY_TO_REAL*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*100.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*velocidade_inversor*) (**) )
+EOR [10,0]
+
+
+(**)
+
+SOR  [0,20] (**) (**)  FB  [1,0] (*>=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*posicao_esteira_engradado*) (**)  , (*i2:*)(*404.0*) (**) ; (*o1:*)(**) (**) )  FB  [4,0] (*=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*autonomo_empacotadora*) (**)  , (*i2:*)(*TRUE*) (**) ; (*o1:*)(**) (**) )  FB  [7,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*esteira_engradado*) (**) )  FB  [10,0] (*TON*) (*TON_1*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#10s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [13,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*206.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*posicao_esteira_engradado*) (**) )
+EOR [16,0]
+
+
+(**)
+
+SOR  [0,24] (**) (**)  FB  [1,0] (*>=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*posicao_esteira_engradado*) (**)  , (*i2:*)(*404.0*) (**) ; (*o1:*)(**) (**) )  FB  [4,0] (*=*) (*7*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*autonomo_empacotadora*) (**)  , (*i2:*)(*FALSE*) (**) ; (*o1:*)(**) (**) )  FB  [7,0] (*ANY_TO_REAL*) (*11*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*0.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*velocidade_inversor*) (**) )  FB  [10,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*FALSE*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*esteira_engradado*) (**) )  FB  [13,0] (*TON*) (*TON_24*) ( (*IN:IN*)(**) (**)  , (*PT:PT*)(*T#10s*) (**) ; (*Q:Q*)(**) (**)  , (*ET:ET*)(**) (**) )  FB  [16,0] (*1 gain*) (*1*) ( (*EN:EN*)(**) (**)  , (*i1:*)(*206.0*) (**) ; (*ENO:ENO*)(**) (**)  , (*o1:*)(*posicao_esteira_engradado*) (**) )
+EOR [19,0]
+EOF
+#end_info
+#info= ID_MAX
+NextId=8
+#end_info
+END_PROGRAM]]></PouBody>
+</Pou>

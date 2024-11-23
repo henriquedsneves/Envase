@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pou FileVersion="200.00.006" Name="RA_ADDR_STRING_TO_OCTETS" ElementGuid="a432b810-d759-4ee5-8a39-4f9d1896fb5c" Comment="" SingleTextLine="Converts an IP Address, Subnet Mask or Gateway Address string into a four octet/USINT array (v2)" Language="ST" Localization="Prj" GenDebugInfo="false" UseResPassword="true" GenerateSymbMon="true" Is1499="false" CustomFbd="0" GroupName="(Definido pelo usuário)">
+  <FunctionBlock IdentifierNb="0" Keyword="" InitInstance="false" SymbMonExtraBytes="128" />
+  <LocalVars>
+    <Variable Name="FBEN" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="AddressString" Comment="" Address="" Alias="" StringSize="15" DataType="STRING" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="ReverseOrder" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarInput" AccessRights="Read" Direction="Input" CommentFields="" Attributes="0" />
+    <Variable Name="FBENO" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="AddressOctets" Comment="" Address="" Alias="" StringSize="0" DataType="USINT" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0">
+      <Dimension Lower="0" Upper="3" />
+    </Variable>
+    <Variable Name="ValidIPAddr" Comment="" Address="" Alias="" StringSize="0" DataType="BOOL" InitialValue="" Modifier="Constant" Kind="VarOutput" AccessRights="Write" Direction="Output" CommentFields="" Attributes="0" />
+    <Variable Name="found" Comment="" Address="" Alias="" StringSize="0" DataType="DINT" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="1" Upper="3" />
+    </Variable>
+    <Variable Name="octetstring" Comment="" Address="" Alias="" StringSize="3" DataType="STRING" InitialValue="" Modifier="Constant" Kind="Var" AccessRights="ReadWrite" Direction="Local" CommentFields="" Attributes="0">
+      <Dimension Lower="1" Upper="4" />
+    </Variable>
+  </LocalVars>
+  <PouBody><![CDATA[FUNCTION_BLOCK RA_ADDR_STRING_TO_OCTETS
+(* =========================================================================================================================
+	[UDFB Name]					:RA_ADDR_STRING_TO_OCTETS
+	[Category]					:String manipulation
+	[Description]				:Converts an IP Address, Subnet Mask or Gateway Address string into a four octet/USINT array
+	[Author]					:Rockwell Automation
+	[Created using CCW Version]	:9.0
+	[Feedback]					:RASampleCode@ra.rockwell.com
+	[Revision History]			:2015-DEC - Release
+								:2016-MAR - Added InvalidIPAddr output parameter
+	[Notes]
+============================================================================================================================ *)
+
+FBENO:= FBEN;
+IF FBEN THEN
+	AddressOctets[0]:= 0;
+	AddressOctets[1]:= 0;
+	AddressOctets[2]:= 0;
+	AddressOctets[3]:= 0;
+	
+	IF MLEN(AddressString)>=7 AND MLEN(AddressString)<=15 THEN
+		found[1]:= FIND(AddressString,'.');
+	
+		IF found[1]>=2 AND found[1]<=4 THEN
+			octetstring[1]	:= LEFT(AddressString,(found[1]-1));
+			found[2]		:= FIND(MID(AddressString,4,(found[1]+1)),'.');
+		
+			IF found[2]>=2 AND found[2]<=4 THEN
+				octetstring[2]	:= MID(AddressString,(found[2]-1),(found[1]+1));
+				found[3]		:= FIND(MID(AddressString,4,(found[1]+found[2]+1)),'.');
+			
+				IF found[3]>=2 AND found[3]<=4 THEN
+					octetstring[3]:= MID(AddressString,(found[3]-1),(found[1]+found[2]+1));
+					octetstring[4]:= RIGHT(AddressString,(MLEN(AddressString)-(found[1]+found[2]+found[3])));
+					IF (ANY_TO_UINT(octetstring[1])<256 AND ANY_TO_UINT(octetstring[2])<256 AND ANY_TO_UINT(octetstring[3])<256 AND ANY_TO_UINT(octetstring[4])<256) THEN
+						IF ReverseOrder THEN
+							AddressOctets[0]:= ANY_TO_USINT(octetstring[4]);
+							AddressOctets[1]:= ANY_TO_USINT(octetstring[3]);
+							AddressOctets[2]:= ANY_TO_USINT(octetstring[2]);
+							AddressOctets[3]:= ANY_TO_USINT(octetstring[1]);
+						ELSE
+							AddressOctets[0]:= ANY_TO_USINT(octetstring[1]);
+							AddressOctets[1]:= ANY_TO_USINT(octetstring[2]);
+							AddressOctets[2]:= ANY_TO_USINT(octetstring[3]);
+							AddressOctets[3]:= ANY_TO_USINT(octetstring[4]);
+						END_IF;
+						ValidIPAddr	:= TRUE;
+					ELSE 
+						ValidIPAddr	:= FALSE;
+					END_IF;
+					
+				ELSE 
+					ValidIPAddr	:= FALSE;
+				END_IF;	
+								
+			ELSE
+				ValidIPAddr:= FALSE;
+			END_IF;
+			
+		ELSE
+			ValidIPAddr:= FALSE;
+		END_IF;
+		
+	ELSE
+		ValidIPAddr:= FALSE;
+	END_IF;
+
+END_IF;
+
+
+END_FUNCTION_BLOCK]]></PouBody>
+</Pou>
